@@ -17,11 +17,11 @@ Manual registration is prone to errors, delays, and difficulty in tracking parti
 ---
 
 ## Functionalities
-- **Add Data**: Admins can create new events and add participant information.  
-- **View Data**: Users and admins can view event details and participant lists.  
-- **Update Data**: Admins can edit event information and update participant records.  
+- **Add Data**: Admins can create new events.
+- **View Data**: Users and admins can view event details and admin is the only one who can view participant lists and slots available aswell as  user registered per event. 
+- **Update Data**: Admins can edit event information.
 - **Delete Data**: Admins can remove events or participant entries.  
-- **API Integration**: Supports integration with external services for notifications and data exchange.  
+- **API Integration**: Supports Creating, editing, recording and deleting users and events etc.
 
 ---
 
