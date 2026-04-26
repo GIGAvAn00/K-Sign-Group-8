@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K-Sign Dashboard</title>
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg ks-navbar fixed-top">
+    <div class="container">
+      <a class="navbar-brand ks-brand" href="#home">
+        <img src="image/Logo_KSign.jpeg" alt="K-Sign Logo" class="ks-logo" />
+        <span>K-Sign</span>
+      </a>
+
+      <button
+        class="navbar-toggler text-white border-0"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#mainNavbar"
+      >
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#introduction">Introduction</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#events">Events</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="openProfilePanel">Profile</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-section" id="home">
+    <div class="hero-overlay"></div>
+    <div class="container position-relative">
+      <div class="row align-items-center min-vh-100">
+        <div class="col-lg-8">
+          <div class="hero-content">
+            <h1>K-SIGN<br />EVENT REGISTRATION</h1>
+            <p>
+              Join exciting K-pop fan events, gatherings, and special experiences.
+              Stay updated with the latest admin-posted events and register with ease.
+            </p>
+            <a href="#events" class="hero-btn">View Events</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRODUCTION -->
+  <section class="intro-section py-5" id="introduction">
+    <div class="container">
+      <div class="intro-box">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-5">
+            <div class="intro-image-wrap">
+              <img src="image/BTS-Intro.jpg" alt="K-pop Event" class="img-fluid intro-image" />
+            </div>
+          </div>
+
+          <div class="col-lg-7">
+            <div class="intro-text">
+              <h2>WELCOME TO K-SIGN</h2>
+              <p>
+                K-Sign is a web-based event registration system made for K-pop fans.
+                This platform allows fans to explore upcoming events posted by admins,
+                check event details, and register quickly in one place.
+              </p>
+              <p>
+                From fan gatherings to special themed events, K-Sign helps you stay
+                connected and updated with the latest happenings in the fan community.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTS -->
+  <section class="events-section py-5" id="events">
+    <div class="container">
+      <div class="section-heading text-center mb-5">
+        <h2>UPCOMING EVENTS</h2>
+        <p>These are the events posted by admins for fans to view and join.</p>
+      </div>
+        <div class="row g-4" id="eventsContainer"></div>
+      </div>
+      </div>
+    </div>
+
+<div class="profile-panel-overlay" id="profilePanelOverlay"></div>
+
+<div class="profile-side-panel" id="profileSidePanel">
+  <div class="profile-panel-header">
+    <h4>My Profile</h4>
+    <button class="close-profile-btn" id="closeProfilePanel" type="button">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <div class="profile-panel-body">
+    <div class="profile-panel-top text-center">
+    <img src="image/user-icon.webp" alt="Profile" class="profile-panel-avatar" id="profileImage">     
+    <p class="profile-panel-role">K-Sign Fan</p>
+    </div>
+
+    <div class="profile-panel-info">
+      <div class="profile-info-item">
+        <span class="info-label">Full Name</span>
+        <p id="profileFullName">Default User</p>
+      </div>
+
+      <div class="profile-info-item">
+        <span class="info-label">Email</span>
+        <p id="profileEmail">default@email.com</p>
+      </div>
+
+      <div class="profile-info-item">
+        <span class="info-label">User ID</span>
+        <p id="profileUserId">KS-2026-0000</p>
+      </div>
+    </div>
+
+    <a href="#" class="profile-logout-btn" id="logoutBtn">
+      <i class="fa-solid fa-right-from-bracket me-2"></i>Log Out
+    </a>
+  </div>
+</div>
+
+<div class="event-modal-overlay" id="eventModalOverlay"></div>
+
+<div class="event-register-modal" id="eventRegisterModal">
+  <div class="event-modal-header">
+    <h4>Event Registration</h4>
+    <button type="button" class="close-event-modal-btn" id="closeEventModal">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <div class="event-modal-body">
+    <div class="event-selected-info">
+      <h5 id="selectedEventTitle">Event Title</h5>
+      <p><i class="fa-solid fa-calendar"></i> <span id="selectedEventDate">Event Date</span></p>
+      <p><i class="fa-solid fa-location-dot"></i> <span id="selectedEventLocation">Event Location</span></p>
+    </div>
+
+    <form id="eventRegistrationForm">
+      <div class="mb-3">
+        <label class="form-label">Username</label>
+        <input type="text" class="form-control" id="eventUsername" readonly />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Full Name</label>
+        <input type="text" class="form-control" id="eventFullName" readonly />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" id="eventEmail" readonly />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">User ID</label>
+        <input type="text" class="form-control" id="eventUserId" readonly />
+      </div>
+
+      <div class="mb-3">
+        <label for="ticketType" class="form-label">Ticket Type</label>
+        <select class="form-select" id="ticketType" required>
+          <option value="">Select Ticket Type</option>
+          <option value="General Admission">General Admission</option>
+          <option value="VIP">VIP</option>
+          <option value="Standing">Standing</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="attendeesCount" class="form-label">Number of Attendees</label>
+        <input type="number" class="form-control" id="attendeesCount" min="1" value="1" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="fanMessage" class="form-label">Message / Notes</label>
+        <textarea class="form-control" id="fanMessage" rows="3" placeholder="Optional message or notes"></textarea>
+      </div>
+
+      <button type="submit" class="submit-event-btn">Submit Registration</button>
+      <p id="eventRegistrationMessage" class="event-registration-message mt-3 mb-0"></p>
+    </form>
+  </div>
+</div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="ks-footer">
+    <div class="container text-center">
+      <p class="mb-0">© 2026 K-Sign Event Registration System | For K-pop fans</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
