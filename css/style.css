@@ -1,0 +1,1323 @@
+/* =========================================================
+   1. GLOBAL / RESET
+========================================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+}
+
+/* =========================================================
+   2. AUTH PAGES SHARED BACKGROUND
+========================================================= */
+.login-page,
+.register-page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.2) 1px, transparent 2px),
+    radial-gradient(circle at 80% 30%, rgba(255,255,255,0.15) 1px, transparent 2px),
+    radial-gradient(circle at 40% 70%, rgba(255,255,255,0.1) 1px, transparent 2px),
+    linear-gradient(180deg, #31135e 0%, #250d4d 35%, #1a083a 65%, #0f0422 100%);
+  background-size: 120px 120px, 160px 160px, 200px 200px, cover;
+}
+
+.login-page::before,
+.register-page::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 45%;
+  background: linear-gradient(to top, rgba(10, 2, 26, 0.95), rgba(10, 2, 26, 0.2));
+  clip-path: polygon(
+    0 60%, 6% 50%, 12% 62%, 18% 46%, 24% 58%, 31% 42%, 39% 60%,
+    47% 45%, 54% 57%, 62% 40%, 69% 54%, 76% 43%, 84% 59%, 92% 47%, 100% 58%,
+    100% 100%, 0 100%
+  );
+}
+
+.login-page::after,
+.register-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #0a021a 0%, rgba(10, 2, 26, 0) 40%);
+  pointer-events: none;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(rgba(255,255,255,0.5) 1.2px, transparent 1.2px),
+    radial-gradient(rgba(255,255,255,0.2) 1px, transparent 1px);
+  background-size: 90px 90px, 140px 140px;
+  background-position: 0 0, 30px 40px;
+  opacity: 0.3; 
+  pointer-events: none;
+}
+
+/* =========================================================
+   3. AUTH SHARED FORM ELEMENTS
+========================================================= */
+.input-box {
+  position: relative;
+}
+
+.input-box input {
+  width: 100%;
+  height: 58px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0 55px 0 24px;
+  color: #fff;
+  font-size: 1rem;
+  transition: 0.3s ease;
+}
+
+.input-box input::placeholder {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.input-box input:focus {
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.08);
+}
+
+.input-box i {
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 1rem;
+}
+
+.message-text {
+  text-align: center;
+  color: #fff;
+  min-height: 20px;
+  font-size: 0.95rem;
+}
+
+/* =========================================================
+   4. LOGIN PAGE
+========================================================= */
+.login-card {
+  position: relative;
+  z-index: 2;
+  padding: 50px 40px 35px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+.login-title {
+  text-align: center;
+  color: #fff;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 35px;
+}
+
+.options-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 0.97rem;
+}
+
+.remember-me input {
+  accent-color: #ffffff;
+}
+
+.forgot-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.97rem;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+.login-btn {
+  width: 100%;
+  height: 56px;
+  border: none;
+  border-radius: 50px;
+  background: #fff;
+  color: #222;
+  font-size: 1.2rem;
+  font-weight: 700;
+  transition: 0.3s ease;
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.18);
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  background: #f3f3f3;
+}
+
+.register-text {
+  text-align: center;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.register-text a {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.register-text a:hover {
+  text-decoration: underline;
+}
+
+/* =========================================================
+   5. REGISTER PAGE
+========================================================= */
+.register-card {
+  position: relative;
+  z-index: 2;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+.register-form-side {
+  padding: 45px 35px;
+  background: rgba(255, 255, 255, 0.05);
+  height: 100%;
+}
+
+.register-title {
+  color: #fff;
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.register-subtitle {
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 28px;
+  font-size: 1rem;
+}
+
+.welcome-side {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 30px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.welcome-content {
+  text-align: center;
+  color: #fff;
+}
+
+.welcome-content h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.welcome-content h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+
+.welcome-content p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.92);
+  margin-bottom: 28px;
+}
+
+.welcome-login-btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 50px;
+  background: #fff;
+  color: #222;
+  text-decoration: none;
+  font-weight: 700;
+  transition: 0.3s ease;
+}
+
+.welcome-login-btn:hover {
+  background: #f3f3f3;
+  transform: translateY(-2px);
+  color: #222;
+}
+
+.register-btn {
+  width: 100%;
+  height: 56px;
+  border: none;
+  border-radius: 50px;
+  background: #fff;
+  color: #222;
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition: 0.3s ease;
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.18);
+}
+
+.register-btn:hover {
+  transform: translateY(-2px);
+  background: #f3f3f3;
+}
+
+.login-text {
+  text-align: center;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.login-text a {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.login-text a:hover {
+  text-decoration: underline;
+}
+
+.register-check {
+  color: #fff;
+}
+
+.register-check .form-check-input {
+  margin-top: 0.3rem;
+}
+
+/* =========================================================
+   6. FAN DASHBOARD NAVBAR / HERO / INTRO / EVENTS
+========================================================= */
+.ks-navbar {
+  background: rgba(16, 10, 35, 0.88);
+  backdrop-filter: blur(10px);
+  padding: 14px 0;
+  transition: 0.3s ease;
+}
+
+.ks-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff !important;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.ks-logo {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.ks-navbar .nav-link {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1rem;
+  font-weight: 500;
+  margin-left: 18px;
+  transition: 0.3s ease;
+}
+
+.ks-navbar .nav-link:hover,
+.ks-navbar .nav-link.active {
+  color: #ff4fa3;
+}
+
+.hero-section {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-image:
+    linear-gradient(rgba(13, 7, 31, 0.35), rgba(13, 7, 31, 0.45)),
+    url("../image/Katseye-Dashboard.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(35, 7, 74, 0.35));
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  padding-top: 70px;
+}
+
+.hero-content h1 {
+  font-size: 5rem;
+  line-height: 1;
+  font-weight: 800;
+  color: #ff0a78;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  color: rgba(255, 255, 255, 0.92);
+  margin-bottom: 28px;
+}
+
+.hero-btn {
+  display: inline-block;
+  background: #ff0a78;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 14px 30px;
+  border-radius: 50px;
+  transition: 0.3s ease;
+}
+
+.hero-btn:hover {
+  background: #e40069;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.intro-section {
+  background: #ececec;
+}
+
+.intro-box {
+  background: #f5f5f5;
+  padding: 40px;
+  border-radius: 20px;
+}
+
+.intro-image-wrap {
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.intro-image {
+  width: 100%;
+  height: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  display: block;
+}
+
+.intro-text h2 {
+  color: #d60063;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.intro-text p {
+  color: #333;
+  font-size: 1.08rem;
+  line-height: 1.9;
+}
+
+.events-section {
+  background: #efefef;
+}
+
+.section-heading h2 {
+  color: #d60063;
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.section-heading p {
+  color: #555;
+  font-size: 1.05rem;
+}
+
+.event-card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  height: 100%;
+  transition: 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-6px);
+}
+
+.event-image {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+}
+
+.event-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.event-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #ff0a78;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 50px;
+}
+
+.event-badge.closed {
+  background: #6c757d;
+}
+
+.event-content {
+  padding: 24px;
+}
+
+.event-content h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #2a1845;
+}
+
+.event-meta {
+  font-size: 0.96rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.event-meta i {
+  color: #d60063;
+  margin-right: 8px;
+}
+
+.event-desc {
+  color: #444;
+  line-height: 1.7;
+  margin: 14px 0 20px;
+}
+
+.event-btn {
+  display: inline-block;
+  background: #d60063;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: 50px;
+  transition: 0.3s ease;
+}
+
+.event-btn:hover {
+  background: #b90056;
+  color: #fff;
+}
+
+.disabled-event-btn {
+  display: inline-block;
+  background: #8c8c8c;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: 50px;
+  pointer-events: none;
+}
+
+.ks-footer {
+  background: #160b2d;
+  color: #fff;
+  padding: 20px 0;
+}
+
+/* =========================================================
+   7. FAN DASHBOARD PROFILE SIDE PANEL
+========================================================= */
+.profile-panel-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 4, 18, 0.58);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease;
+  z-index: 1040;
+}
+
+.profile-panel-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.profile-side-panel {
+  position: fixed;
+  top: 0;
+  right: -380px;
+  width: 360px;
+  max-width: 92%;
+  height: 100vh;
+  background: linear-gradient(180deg, #0f061a 0%, #170926 35%, #24103a 70%, #2b1242 100%);
+  color: #fff;
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.32);
+  transition: 0.35s ease;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.profile-side-panel.show {
+  right: 0;
+}
+
+.profile-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 26px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.profile-panel-header h4 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+.close-profile-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 1.9rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.close-profile-btn:hover {
+  color: #ff5aa9;
+  transform: scale(1.05);
+}
+
+.profile-panel-body {
+  padding: 28px 26px 32px;
+  overflow-y: auto;
+}
+
+.profile-panel-top {
+  margin-bottom: 28px;
+}
+
+.profile-panel-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #ffffff;
+  padding: 5px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+}
+
+.profile-panel-top h5 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 14px;
+  margin-bottom: 4px;
+}
+
+.profile-panel-role {
+  color: rgba(255, 255, 255, 0.62);
+  margin-bottom: 0;
+  font-size: 0.96rem;
+}
+
+.profile-panel-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.profile-info-item {
+  background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.05) 100%);
+  border-radius: 18px;
+  padding: 18px 18px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+.info-label {
+  display: block;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.profile-info-item p {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #ffffff;
+  word-break: break-word;
+  line-height: 1.45;
+}
+
+.profile-logout-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: linear-gradient(90deg, #ff4d9d 0%, #ff5fb0 100%);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 800;
+  padding: 16px 18px;
+  border-radius: 999px;
+  transition: 0.28s ease;
+  box-shadow: 0 12px 24px rgba(255, 77, 157, 0.22);
+}
+
+.profile-logout-btn:hover {
+  background: linear-gradient(90deg, #f24393 0%, #ff56a8 100%);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   8. FAN DASHBOARD EVENT REGISTRATION MODAL
+========================================================= */
+.event-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease;
+  z-index: 1060;
+}
+
+.event-modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.event-register-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 95%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+  transform: translate(-50%, -50%) scale(0.9);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease;
+  z-index: 1070;
+}
+
+.event-register-modal.show {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+.event-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 24px 16px;
+  border-bottom: 1px solid #ececec;
+}
+
+.event-modal-header h4 {
+  margin: 0;
+  color: #d60063;
+  font-weight: 800;
+}
+
+.close-event-modal-btn {
+  border: none;
+  background: transparent;
+  font-size: 1.4rem;
+  color: #333;
+  cursor: pointer;
+}
+
+.event-modal-body {
+  padding: 24px;
+}
+
+.event-selected-info {
+  background: #fff0f7;
+  border-left: 5px solid #d60063;
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin-bottom: 22px;
+}
+
+.event-selected-info h5 {
+  color: #8d0042;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.event-selected-info p {
+  margin-bottom: 8px;
+  color: #444;
+}
+
+.event-selected-info i {
+  color: #d60063;
+  margin-right: 8px;
+}
+
+#eventRegistrationForm .form-control,
+#eventRegistrationForm .form-select {
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+#eventRegistrationForm .form-control:focus,
+#eventRegistrationForm .form-select:focus {
+  border-color: #ff4fa3;
+  box-shadow: 0 0 0 0.2rem rgba(255, 79, 163, 0.16);
+}
+
+.submit-event-btn {
+  width: 100%;
+  border: none;
+  background: #d60063;
+  color: #fff;
+  border-radius: 50px;
+  padding: 14px 18px;
+  font-weight: 700;
+  transition: 0.3s ease;
+}
+
+.submit-event-btn:hover {
+  background: #b90056;
+}
+
+.event-registration-message {
+  text-align: center;
+  font-weight: 600;
+  min-height: 22px;
+}
+
+/* =========================================================
+   9. ADMIN DASHBOARD LAYOUT
+========================================================= */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f4f5f9;
+}
+
+.admin-sidebar {
+  width: 280px;
+  background: linear-gradient(180deg, #140523 0%, #31104d 50%, #5a157e 100%);
+  color: #fff;
+  padding: 24px 18px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.admin-logo {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: #fff;
+  padding: 4px;
+}
+
+.admin-brand h4 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.admin-brand p {
+  margin: 0;
+  color: rgba(255,255,255,0.75);
+  font-size: 0.9rem;
+}
+
+.admin-menu li {
+  margin-bottom: 10px;
+}
+
+.admin-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.admin-link:hover,
+.admin-link.active {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
+
+.logout-admin {
+  margin-top: 20px;
+  background: rgba(255, 79, 163, 0.15);
+}
+
+.admin-main {
+  flex: 1;
+  padding: 32px;
+}
+
+.admin-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.admin-topbar h2 {
+  margin: 0;
+  font-weight: 800;
+  color: #28123f;
+}
+
+.admin-topbar p {
+  margin: 0;
+  color: #666;
+}
+
+
+
+
+/* =========================================================
+   10. ADMIN DASHBOARD CARDS / FORMS / REPORTS
+========================================================= */
+.admin-section {
+  margin-bottom: 34px;
+}
+
+.admin-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.stats-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 26px 24px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 132px;
+}
+
+.stats-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.stats-icon.pink { background: #ff0a78; }
+.stats-icon.purple { background: #7b2cff; }
+.stats-icon.blue { background: #2f80ed; }
+.stats-icon.green { background: #27ae60; }
+
+.stats-card h3 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #241039;
+}
+
+.stats-card p {
+  margin: 6px 0 0;
+  color: #666;
+  font-size: 1rem;
+}
+
+.section-title-wrap {
+  margin-bottom: 18px;
+}
+
+.section-title-wrap h3 {
+  margin: 0 0 6px;
+  font-weight: 800;
+  font-size: 2.2rem;
+  color: #23103a;
+}
+
+.section-title-wrap p {
+  margin: 0;
+  color: #6b6b6b;
+  font-size: 1.05rem;
+}
+
+.form-control,
+.form-select {
+  min-height: 48px;
+  border-radius: 14px;
+}
+
+textarea.form-control {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.admin-btn-primary,
+.admin-btn-secondary {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 50px;
+  font-weight: 700;
+  transition: 0.3s ease;
+}
+
+.admin-btn-primary {
+  background: #d60063;
+  color: #fff;
+}
+
+.admin-btn-primary:hover {
+  background: #b90056;
+}
+
+.admin-btn-secondary {
+  background: #ececec;
+  color: #333;
+  margin-left: 8px;
+}
+
+.report-box {
+  background: linear-gradient(180deg, #ffffff 0%, #fff8fc 100%);
+  border: 1px solid #f4d9e8;
+  border-radius: 22px;
+  padding: 26px 22px;
+  min-height: 135px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.04);
+}
+
+.improved-report-box h5,
+.report-box h5 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #5d2b74;
+  margin-bottom: 14px;
+}
+
+.improved-report-box p,
+.report-box p {
+  font-size: 1.15rem;
+  color: #333;
+  margin: 0;
+  line-height: 1.6;
+}
+
+#users-management .admin-card,
+#reports-management .admin-card,
+#registrations-management .admin-card {
+  min-height: 280px;
+}
+
+/* =========================================================
+   11. ADMIN DASHBOARD TABLES
+========================================================= */
+.table-responsive {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  min-width: 1100px;
+  margin-bottom: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 18px 14px;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.admin-table th {
+  color: #5d2b74;
+  font-size: 1rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.admin-table td {
+  color: #2f2f2f;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.admin-table tbody tr {
+  border-bottom: 1px solid #eeeeee;
+}
+
+.admin-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.event-thumb {
+  width: 100px;
+  height: 76px;
+  object-fit: contain;
+  border-radius: 12px;
+  display: block;
+  background: #f2f2f2;
+  padding: 6px;
+  border: 1px solid #eeeeee;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 74px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.status-open { background: #ff0a78; }
+.status-soon { background: #7f8c8d; }
+.status-closed { background: #c0392b; }
+
+.capacity-badge,
+.remaining-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.capacity-badge {
+  background: #efe7ff;
+  color: #6f42c1;
+}
+
+.remaining-badge {
+  background: #e9fff1;
+  color: #1e8e4d;
+}
+
+.remaining-badge.low {
+  background: #fff2e8;
+  color: #d35400;
+}
+
+.remaining-badge.full {
+  background: #ffeaea;
+  color: #d63031;
+}
+
+.table-action-btn {
+  border: none;
+  padding: 9px 14px;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin: 3px 6px 3px 0;
+  display: inline-block;
+}
+
+.btn-edit {
+  background: #fff0f7;
+  color: #d60063;
+}
+
+.btn-delete {
+  background: #ffeaea;
+  color: #d63031;
+}
+
+/* =========================================================
+   12. RESPONSIVE
+========================================================= */
+@media (max-width: 991px) {
+  .welcome-side {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    min-height: 280px;
+  }
+
+  .register-form-side {
+    padding: 35px 22px;
+  }
+
+  .register-title {
+    font-size: 2.3rem;
+  }
+
+  .welcome-content h1 {
+    font-size: 2.4rem;
+  }
+
+  .hero-content h1 {
+    font-size: 3.4rem;
+  }
+
+  .intro-box {
+    padding: 24px;
+  }
+
+  .intro-text h2,
+  .section-heading h2 {
+    font-size: 2.2rem;
+  }
+
+  .admin-layout {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .admin-main {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 576px) {
+  .login-card {
+    padding: 38px 22px 28px;
+  }
+
+  .login-title {
+    font-size: 2.3rem;
+  }
+
+  .input-box input {
+    height: 54px;
+    font-size: 0.95rem;
+  }
+
+  .login-btn {
+    height: 52px;
+    font-size: 1.05rem;
+  }
+
+  .options-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ks-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .ks-brand {
+    font-size: 1.2rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .intro-text h2,
+  .section-heading h2 {
+    font-size: 1.8rem;
+  }
+}
